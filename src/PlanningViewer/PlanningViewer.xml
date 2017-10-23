@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget id="PlanningViewer.widget.PlanningViewer" needsEntityContext="false" xmlns="http://www.mendix.com/widget/1.0/">
+    <name>PlanningViewer</name>
+    <description>Planning Viewer Widget</description>
+
+    <icon/>
+
+    <properties>
+        <property key="plObjectEntity" type="entity" required="true">
+            <caption>Planning Objects Entity</caption>
+            <category>Data source</category>
+            <description>The entity containing the source data.</description>
+        </property>
+        <property key="plObjectConstraint" type="entityConstraint" required="false" entityProperty="plObjectEntity">
+            <caption>Planning Data Constraint</caption>
+            <category>Data source</category>
+            <description>Constraint for fetching planning objects</description>
+        </property>
+        <property key="plIdAttribute" type="attribute" required="true" entityProperty="plObjectEntity">
+            <caption>Identifier Attribute</caption>
+            <category>Data source</category>
+            <description>Identifier attribute for Planning Objects (ie Ticket ID).</description>
+            <attributeTypes>
+                <attributeType name="AutoNumber"/>
+                <attributeType name="String"/>
+                <attributeType name="Integer"/>
+                <attributeType name="Long"/>
+            </attributeTypes>
+        </property>
+        <property key="plDescrAttribute" type="attribute" required="true" entityProperty="plObjectEntity">
+            <caption>Description Attribute</caption>
+            <category>Data source</category>
+            <description>Description attribute for Planning Objects.</description>
+            <attributeTypes>
+                <attributeType name="String"/>
+            </attributeTypes>
+        </property>
+        <property key="plNotamAttribute" type="attribute" required="true" entityProperty="plObjectEntity">
+            <caption>NOTAM Attribute</caption>
+            <category>Data source</category>
+            <description>Attribute indicating NOTAM property for Planning Objects.</description>
+            <attributeTypes>
+                <attributeType name="Boolean"/>
+            </attributeTypes>
+        </property>
+        <property key="plDisturbantAttribute" type="attribute" required="true" entityProperty="plObjectEntity">
+            <caption>Disturbant Attribute</caption>
+            <category>Data source</category>
+            <description>Attribute indicating if disturbance is to be expected for Planning Objects.</description>
+            <attributeTypes>
+                <attributeType name="Boolean"/>
+            </attributeTypes>
+        </property>
+        <property key="plStartAttribute" type="attribute" required="true" entityProperty="plObjectEntity">
+            <caption>Planned Start Attribute</caption>
+            <category>Data source</category>
+            <description>Start date/time attribute for Planning Objects.</description>
+            <attributeTypes>
+                <attributeType name="DateTime"/>
+            </attributeTypes>
+        </property>
+        <property key="plEndAttribute" type="attribute" required="true" entityProperty="plObjectEntity">
+            <caption>Planned End Attribute</caption>
+            <category>Data source</category>
+            <description>End date/time attribute for Planning Objects.</description>
+            <attributeTypes>
+                <attributeType name="DateTime"/>
+            </attributeTypes>
+        </property>
+        <property key="plTypeAttribute" type="attribute" required="true" entityProperty="plObjectEntity">
+            <caption>Type Attribute</caption>
+            <category>Data source</category>
+            <description>Type Attribute for Planning Objects.</description>
+            <attributeTypes>
+                <attributeType name="Enum"/>
+            </attributeTypes>
+        </property>
+        <property key="arObjectEntity" type="entity" required="false">
+            <caption>AIRAC Data Entity</caption>
+            <category>Data source: AIRAC</category>
+            <description>The entity containing the AIRAC data.</description>
+        </property>
+        <property key="arObjectConstraint" type="entityConstraint" required="false" entityProperty="arObjectEntity">
+            <caption>AIRAC Data Constraint</caption>
+            <category>Data source: AIRAC</category>
+            <description>Constraint for fetching the AIRAC data.</description>
+        </property>
+        <property key="arDateAttribute" type="attribute" required="true" entityProperty="arObjectEntity">
+            <caption>AIRAC Date Attribute</caption>
+            <category>Data source: AIRAC</category>
+            <description>Attribute that contains the actual AIRAC date.</description>
+            <attributeTypes>
+                <attributeType name="DateTime"/>
+            </attributeTypes>
+        </property>
+        <property key="plStateEntity" type="entity" required="true" isPath="yes" pathType="reference" entityProperty="plObjectEntity">
+            <caption>State Entity</caption>
+            <category>Data source</category>
+            <description>State entity for Planning Objects.</description>
+        </property>
+        <property key="plStateAttribute" type="attribute" required="true" entityProperty="plStateEntity">
+            <caption>State Attribute</caption>
+            <category>Data source</category>
+            <description>Attribute for state name of State Entity.</description>
+            <attributeTypes>
+                <attributeType name="String"/>
+            </attributeTypes>
+        </property>
+        <property key="plStateColorAttribute" type="attribute" required="true" entityProperty="plStateEntity">
+            <caption>Color Attribute</caption>
+            <category>Data source</category>
+            <description>Attribute that contains color code for Planning Objects (hex #fff000).</description>
+            <attributeTypes>
+                <attributeType name="String"/>
+            </attributeTypes>
+        </property>
+        <property key="clickMicroflow" type="microflow" required="false" entityProperty="plObjectEntity" defaultValue="">
+            <caption>Click microflow</caption>
+            <category>Behavior</category>
+            <description>The microflow to execute on clicking a Planned Object.</description>
+            <returnType type="Boolean"/>
+        </property>
+    </properties>
+</widget>

@@ -1,0 +1,5 @@
+Change log
+	2013-03-22 - Diego Slijkhuis
+		lib/planning.js/renderSIMPlanning() > Changed
+			From: appendColumnHeaders($timeNode);
+      To:   appendColumnHeaders($timeNode, scope_Events);

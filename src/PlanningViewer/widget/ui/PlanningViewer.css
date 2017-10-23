@@ -1,0 +1,286 @@
+.day-header {
+    width: 95px;
+}
+span.day-label {
+    font-weight: 200;
+}
+.header-container {
+    background-color: #545353;
+    top: 0px;
+    z-index: 101;
+    position: absolute;
+}
+.header-container.header-full {
+    width: 100%;
+}
+.header-container.header-hours li.today {
+    display: inline-flex
+}
+.header-container.header-hours span.back {
+    font-size: 30px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.header-container.header-hours .today div {
+    font-size: 18px;
+    font-weight: 400;
+    margin-left: 10px;
+    margin-top: 4px;
+}
+.planning {
+    box-sizing: border-box;
+    height: 100vh;
+    margin: 0px;
+    overflow: auto;
+    color: #fff;
+    background: #3a3a3a;
+    position: relative;
+    font-family: Arial;
+}
+.planning::after {
+    clear: both;
+    content: "";
+    display: table;
+}
+.planning *, .planning *:before, .planning *:after {
+    box-sizing: inherit;
+}
+.planning ul, .planning li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none
+}
+.planning ul {
+    list-style-type: none;
+    margin: 0
+}
+.planning section {
+    padding: 0!important;
+    -webkit-overflow-scrolling: touch;
+}
+.planning section time {
+    white-space: nowrap;
+    display: inline-block;
+}
+.planning section header {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    font-size: 0;
+    border-bottom: 1px solid gray;
+}
+.planning section header ul.week-header {
+    border-bottom: 1px solid gray;
+    height: 30px;
+    line-height: 30px;
+}
+.planning section header ul.week-header li {
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+}
+.planning section header ul.day-header {
+    border-bottom: 1px solid gray;
+    height: 46px;
+    line-height: 46px;
+}
+.planning section header ul.day-header li {
+    height: 46px;
+    line-height: 46px;
+}
+.planning section header ul.week-header li.week-label {
+    font-size: 16px;
+}
+.planning section header::after {
+    clear: both;
+    content: "";
+    display: table
+}
+.planning section header li {
+    display: inline-block;
+    font-size: 1rem;
+    overflow: visible;
+    width: 0;
+    line-height: 46px;
+    display: inline-block;
+    position: relative;
+    text-align: center
+}
+.planning section header li:not(:last-of-type) {
+    width: 96px;
+    border-right: 1px solid gray;
+}
+.planning section header li.day {
+    width: 96px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.planning section header li.day.alt {
+    background-color: #4c4c6b;
+}
+.planning section header li.day:hover {
+    width: 96px;
+    cursor: pointer;
+    background-color: #717171;
+}
+.planning section header li.hour {
+    width: 48px;
+}
+.planning section header li .time-label {
+    display: block;
+    position: absolute;
+    left: 0
+}
+.planning section header li:not(:first-of-type) .time-label {
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%)
+}
+.planning section header li:last-of-type .time-label {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%)
+}
+.planning ul.timeline {
+    border-left: none;
+    margin-top: 77px;
+    /*background-color: #3a3a3a;*/
+}
+.planning ul.timeline.hours {
+    margin-top: 100px !important;
+    background-image: linear-gradient(to right, #949191, #656464 1px, #656464 1px, #8a8989 1px, #656464 1px, #656464 1px, transparent 1px, transparent);
+    background-size: 48px auto;
+    background-position: -1px 0;
+}
+.planning ul.timeline li {
+    position: relative;
+    height: 16px;
+}
+.planning ul.timeline li:not(:last-of-type) {
+    border-bottom: none
+}
+.planning ul.timeline li:after, .timetable ul.timeline li:before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0
+}
+.planning ul.timeline li:before {
+    background-image: linear-gradient(to right, #E5E5E5 1px, transparent 1px);
+    background-size: 24px auto
+}
+.planning ul.timeline li:after {
+    /*background-image: linear-gradient(to right, #949191, #656464 1px, #656464 1px, #8a8989 1px, #656464 1px, #656464 1px, transparent 1px, transparent);*/
+    background-size: 96px auto;
+    background-position: -1px 0
+}
+.planning .time-entry {
+    background-color: grey;
+    transition: 200ms background-color;
+    height: 12px;
+    display: block;
+    position: absolute;
+    z-index: 2;
+    white-space: normal;
+    overflow: hidden;
+    color: #fff;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    height: 12px;
+    border-radius: 5px;
+    margin-top: 1px;
+    cursor: pointer;
+}
+.planning .time-entry:hover {
+    background-color: #e74030
+}
+.planning .time-entry-label {
+    height: 12px;
+    display: block;
+    position: absolute;
+    font-size: 1rem;
+    z-index: 2;
+    padding: 0 10px;
+    white-space: nowrap;
+    color: #fff;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    height: 12px;
+    cursor: pointer;
+}
+.planning-legend {
+    position: fixed;
+    bottom: 30px;
+    left: 20px;
+    font-size: 1rem;
+    z-index: 100;
+    background: #3a3a3a;
+    ;
+    border: 1px solid gray;
+    padding: 10px;
+    width: 200px;
+    box-shadow: 0px 0px 20px #212020;
+}
+.planning-legend .legend-buttons {
+    margin-bottom: 15px;
+}
+.planning-legend .legend-buttons .btn {
+    margin-right: 5px;
+}
+.planning-legend ul {
+    list-style-type: none;
+    padding-left: 10px;
+}
+.planning-legend div.legend-item {
+    display: inline-flex;
+}
+.planning-legend .legend-icon {
+    background-color: grey;
+    transition: 200ms background-color;
+    height: 12px;
+    display: inline-flex;
+    z-index: 2;
+    white-space: normal;
+    color: #000;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    height: 12px;
+    border-radius: 5px;
+    margin-top: 1px;
+    width: 20px;
+}
+.planning-legend .legend-label {
+    display: inline-flex;
+    white-space: normal;
+    color: #fff;
+    border-radius: 5px;
+    margin-top: 1px;
+    padding-left: 10px;
+}
+
+.background-container {
+    position: absolute;
+    top: 77px;
+}
+
+.day-background {
+    height: 100%;
+}
+
+.day-background li {
+    width: 96px;
+    float: left;
+    height: 100%;
+    border-right: 1px solid gray;
+}
+
+li.weekday {
+    background-color: #656464;
+
+}
+
+li.weekend {
+    background-color: #202020;
+}
+
