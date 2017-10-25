@@ -95,7 +95,7 @@ define([
 
 
 
-            this._updateRendering();
+            // this._updateRendering();
         },
 
         update: function(obj, callback) {
@@ -143,7 +143,9 @@ define([
         _updateRendering: function(callback) {
             logger.debug(this.id + "._updateRendering");
 
-            mendix.lang.nullExec(callback);
+            if (callback) {
+                callback();
+            };
         },
 
         fGetPlanningData: function() {
@@ -179,7 +181,6 @@ define([
                 filter: filter,
                 callback: function(objs) {
                     this.fPrepareData(objs);
-                    this.fGetAIRACData();
                 },
                 error: function(error) {
                     logger.error(this.id + ".fGetPlanningData: An error occurred while fetching object\n" + error);
@@ -237,54 +238,65 @@ define([
             }
 
             dojoArray.forEach(objs, function(event, i) {
-                var state = event.get(this._stateAssoc[0]);
-                var start = moment(event.get(this.plStartAttribute));
-                var end = moment(event.get(this.plEndAttribute));
-                var range = moment.range(start, end);
-                var duration = range.diff("minutes");
+                mx.data.get({
+                    guid: event.getGuid(),
+                    path: this._stateAssoc[0],
+                    callback: dojoLang.hitch(this, function (mxObjects) {
+                        if (mxObjects > 0) {
+                            // var state = event.get(this._stateAssoc[0]);
+                            var start = moment(event.get(this.plStartAttribute));
+                            var end = moment(event.get(this.plEndAttribute));
+                            var range = moment.range(start, end);
+                            var duration = range.diff("minutes");
+            
+                            var start8 = moment(start);
+                            start8.set({
+                                hour: 19,
+                                minute: 58
+                            });
+                            var start9 = moment(start);
+                            start9.set({
+                                hour: 20,
+                                minute: 59
+                            });
+                            var start3 = moment(start);
+                            start3.set({
+                                hour: 3,
+                                minute: 1
+                            });
+            
+                            var nightly = ((start.isAfter(start8) && duration > 120 && duration < 601) ||
+                                (start.isAfter(start9) && duration < 480) ||
+                                (start.isBefore(start3) && duration < 300));
+            
+                            var type = event.get(this.plTypeAttribute);
+            
+                            var eventObj = {
+                                obj: event,
+                                id: event.get(this.plIdAttribute),
+                                description: event.get(this.plDescrAttribute),
+                                plannedStart: start,
+                                plannedEnd: end,
+                                nightly: nightly,
+                                state: mxObjects[0].get(this.plStateAttribute),
+                                color: mxObjects[0].get(this.plStateColorAttribute),
+                                notam: event.get(this.plNotamAttribute),
+                                disturbant: event.get(this.plDisturbantAttribute)
+                            };
+                            if (type === "SIM") {
+                                events_sim.push(eventObj);
+                            } else {
+                                events.push(eventObj);
+                            }
+                            this.events = events;
+                            this.events_sim = events_sim;
+                            this.fGetAIRACData();
+                        }
 
-                var start8 = moment(start);
-                start8.set({
-                    hour: 19,
-                    minute: 58
+                    })
                 });
-                var start9 = moment(start);
-                start9.set({
-                    hour: 20,
-                    minute: 59
-                });
-                var start3 = moment(start);
-                start3.set({
-                    hour: 3,
-                    minute: 1
-                });
 
-                var nightly = ((start.isAfter(start8) && duration > 120 && duration < 601) ||
-                    (start.isAfter(start9) && duration < 480) ||
-                    (start.isBefore(start3) && duration < 300));
-
-                var type = event.get(this.plTypeAttribute);
-
-                var eventObj = {
-                    obj: event,
-                    id: event.get(this.plIdAttribute),
-                    description: event.get(this.plDescrAttribute),
-                    plannedStart: start,
-                    plannedEnd: end,
-                    nightly: nightly,
-                    state: state.attributes[this.plStateAttribute].value,
-                    color: state.attributes[this.plStateColorAttribute].value,
-                    notam: event.get(this.plNotamAttribute),
-                    disturbant: event.get(this.plDisturbantAttribute)
-                };
-                if (type === "SIM") {
-                    events_sim.push(eventObj);
-                } else {
-                    events.push(eventObj);
-                }
             }, this);
-            this.events = events;
-            this.events_sim = events_sim;
         },
 
         fPrepareAIRACData: function(objs) {
