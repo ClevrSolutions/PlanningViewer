@@ -1,0 +1,22 @@
+{
+  "name": "planning-viewer",
+  "widgetName": "PlanningViewer",
+  "version": "1.1.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MansystemsCorp/PlanningViewer"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/MansystemsCorp/PlanningViewer"
+  },
+  "devDependencies": {
+    "grunt": "1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-compress": "^1.2.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-newer": "^1.1.1"
+  }
+}
